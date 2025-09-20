@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { useTableStore } from '@/store/tableStore';
 import { Button } from '@/components/ui/button';
+import { DynamicTableRow } from '@/DynamicTableRow.tsx';
 import {
     Table,
     TableBody,
-    TableCell,
-    TableHead,
     TableHeader,
-    TableRow,
 } from '@/components/ui/table';
 
 export const DevTaskTable = () => {
@@ -32,25 +30,24 @@ export const DevTaskTable = () => {
                 <div>
                     <Table>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>ID</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Level</TableHead>
-                                <TableHead>Tasks Count</TableHead>
-                            </TableRow>
+                            <DynamicTableRow
+                                isHeader
+                                bgColor="#e3cca6"
+                                items={['ID', 'Name', 'Level', 'Tasks Count']}
+                            />
                         </TableHeader>
                         <TableBody>
                             {developers.map((developer) => (
-                                <TableRow
+                                <DynamicTableRow
                                     key={developer.id}
-                                    onClick={() => selectDeveloper(developer)}
-                                    className="cursor-pointer hover:bg-gray-50"
-                                >
-                                    <TableCell>{developer.id}</TableCell>
-                                    <TableCell>{developer.name}</TableCell>
-                                    <TableCell>{developer.skillLevel}</TableCell>
-                                    <TableCell>{developer.tasks.length}</TableCell>
-                                </TableRow>
+                                    items={[
+                                        developer.id,
+                                        developer.name,
+                                        developer.skillLevel,
+                                        developer.tasks.length.toString()
+                                    ]}
+                                    onRowClick={() => selectDeveloper(developer)}
+                                />
                             ))}
                         </TableBody>
                     </Table>
@@ -61,21 +58,23 @@ export const DevTaskTable = () => {
                 <div>
                     <Table>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>ID</TableHead>
-                                <TableHead>Title</TableHead>
-                                <TableHead>Description</TableHead>
-                                <TableHead>Status</TableHead>
-                            </TableRow>
+                            <DynamicTableRow
+                                isHeader
+                                bgColor="#e3cca6"
+                                items={['ID', 'Title', 'Description', 'Status']}
+                            />
                         </TableHeader>
                         <TableBody>
                             {selectedDeveloper.tasks.map((task) => (
-                                <TableRow key={task.id}>
-                                    <TableCell>{task.id}</TableCell>
-                                    <TableCell>{task.title}</TableCell>
-                                    <TableCell>{task.description}</TableCell>
-                                    <TableCell>{task.status}</TableCell>
-                                </TableRow>
+                                <DynamicTableRow
+                                    key={task.id}
+                                    items={[
+                                        task.id,
+                                        task.title,
+                                        task.description,
+                                        task.status
+                                    ]}
+                                />
                             ))}
                         </TableBody>
                     </Table>
