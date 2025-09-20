@@ -34,10 +34,10 @@ export const DevTaskTable = () => {
 
             {currentView === 'tasks' && selectedDeveloper && (
                 <DynamicTable
-                    columns={['ID', 'Title', 'Description', 'Status']}
+                    columns={['ID', 'Title', 'Description', 'Preority', 'Status']}
                     data={selectedDeveloper.tasks.map(task => ({
                         id: task.id,
-                        values: [task.id, task.title, task.description, task.status]
+                        values: [task.id, task.title, task.description, task.priority, task.status]
                     }))}
                     bgColor="#e3cca6"
                 />
