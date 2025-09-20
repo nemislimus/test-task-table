@@ -1,12 +1,7 @@
 import { useEffect } from 'react';
 import { useTableStore } from '@/store/tableStore';
 import { Button } from '@/components/ui/button';
-import { DynamicTableRow } from '@/DynamicTableRow.tsx';
-import {
-    Table,
-    TableBody,
-    TableHeader,
-} from '@/components/ui/table';
+import { DynamicTable } from '@/DynamicTable.tsx';
 
 export const DevTaskTable = () => {
     const { currentView, developers, selectedDeveloper, selectDeveloper, resetView, loadMockData } = useTableStore();
@@ -25,60 +20,27 @@ export const DevTaskTable = () => {
                 }
             </h2>
 
-            {/* Таблица */}
             {currentView === 'developers' && (
-                <div>
-                    <Table>
-                        <TableHeader>
-                            <DynamicTableRow
-                                isHeader
-                                bgColor="#e3cca6"
-                                items={['ID', 'Name', 'Level', 'Tasks Count']}
-                            />
-                        </TableHeader>
-                        <TableBody>
-                            {developers.map((developer) => (
-                                <DynamicTableRow
-                                    key={developer.id}
-                                    items={[
-                                        developer.id,
-                                        developer.name,
-                                        developer.skillLevel,
-                                        developer.tasks.length.toString()
-                                    ]}
-                                    onRowClick={() => selectDeveloper(developer)}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                </div>
+                <DynamicTable
+                    columns={['ID', 'Name', 'Level', 'Tasks Count']}
+                    data={developers.map(dev => ({
+                        id: dev.id,
+                        values: [dev.id, dev.name, dev.skillLevel, dev.tasks.length.toString()]
+                    }))}
+                    onRowClick={(id) => selectDeveloper(developers.find(d => d.id === id)!)}
+                    bgColor="#e3cca6"
+                />
             )}
 
             {currentView === 'tasks' && selectedDeveloper && (
-                <div>
-                    <Table>
-                        <TableHeader>
-                            <DynamicTableRow
-                                isHeader
-                                bgColor="#e3cca6"
-                                items={['ID', 'Title', 'Description', 'Status']}
-                            />
-                        </TableHeader>
-                        <TableBody>
-                            {selectedDeveloper.tasks.map((task) => (
-                                <DynamicTableRow
-                                    key={task.id}
-                                    items={[
-                                        task.id,
-                                        task.title,
-                                        task.description,
-                                        task.status
-                                    ]}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                </div>
+                <DynamicTable
+                    columns={['ID', 'Title', 'Description', 'Status']}
+                    data={selectedDeveloper.tasks.map(task => ({
+                        id: task.id,
+                        values: [task.id, task.title, task.description, task.status]
+                    }))}
+                    bgColor="#e3cca6"
+                />
             )}
 
             {/* Кнопка назад под таблицей */}
