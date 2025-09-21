@@ -1,7 +1,7 @@
 import {
-    TableCell,
-    TableHead,
-    TableRow,
+  TableCell,
+  TableHead,
+  TableRow,
 } from '@/components/ui/table';
 
 interface DynamicTableRowProps {
@@ -11,20 +11,23 @@ interface DynamicTableRowProps {
   onRowClick?: () => void;
 }
 
-export const DynamicTableRow = ({ 
-  items, 
-  isHeader = false, 
-  bgColor, 
-  onRowClick 
+export const DynamicTableRow = ({
+  items,
+  isHeader = false,
+  bgColor,
+  onRowClick
 }: DynamicTableRowProps) => {
   const columnCount = items.length;
   const widthClass = `w-1/${columnCount}`;
 
   return (
-    <TableRow 
+    <TableRow
       style={bgColor ? { backgroundColor: bgColor } : undefined}
+      className={`
+    ${onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''}
+    ${isHeader ? 'rounded-t-lg' : ''}
+  `}
       onClick={onRowClick}
-      className={onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''}
     >
       {items.map((item, index) =>
         isHeader ? (
