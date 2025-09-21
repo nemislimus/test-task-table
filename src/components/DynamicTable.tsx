@@ -3,7 +3,7 @@ import {
   TableBody,
   TableHeader,
 } from '@/components/ui/table';
-import { DynamicTableRow } from '@/DynamicTableRow.tsx';
+import { DynamicTableRow } from '@/components/DynamicTableRow';
 
 interface DynamicTableProps {
   columns: string[];

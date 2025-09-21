@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTableStore } from '@/store/tableStore';
 import { Button } from '@/components/ui/button';
-import { DynamicTable } from '@/DynamicTable.tsx';
+import { DynamicTable } from '@/components/DynamicTable';
 
 export const DevTaskTable = () => {
     const { currentView, developers, selectedDeveloper, selectDeveloper, resetView, loadMockData } = useTableStore();

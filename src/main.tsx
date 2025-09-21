@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { DevTaskTable } from './DevTaskTable.tsx'
+import { DevTaskTable } from './components/DevTaskTable.tsx'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
